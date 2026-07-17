@@ -8,6 +8,6 @@ export default function TypographyH1({
   className,
 }: TypographyH1Props) {
   return (
-    <h1 className={`font-bold text-2xl text-white ${className}`}>{children}</h1>
+    <h1 className={`font-bold text-3xl text-white ${className}`}>{children}</h1>
   );
 }

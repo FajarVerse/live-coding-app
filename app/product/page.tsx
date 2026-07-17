@@ -1,6 +1,8 @@
 "use client";
 
 import type { Auth } from "@/app/login/page";
+import ContainerLayout from "@/layouts/container-layout";
+import Header from "@/layouts/header";
 import { getProduct } from "@/services/product.service";
 import Image from "next/image";
 import Link from "next/link";
@@ -66,16 +68,7 @@ export default function Page() {
   }, [router]);
 
   return (
-    <section className="min-h-screen w-full px-5">
-      <div className="w-fit py-5">
-        <button
-          className="bg-blue-700 text-white px-5 py-2 rounded-md cursor-pointer"
-          type="button"
-          onClick={onLogout}
-        >
-          Logout
-        </button>
-      </div>
+    <ContainerLayout>
       <div className="w-full flex gap-5 flex-wrap">
         {data.products &&
           Array.isArray(data.products) &&
@@ -107,6 +100,6 @@ export default function Page() {
             </Link>
           ))}
       </div>
-    </section>
+    </ContainerLayout>
   );
 }
