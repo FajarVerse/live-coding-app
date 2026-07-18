@@ -37,7 +37,7 @@ function CardHeader({ imgUrl, title }: CardHeaderProps) {
       alt={title}
       width={100}
       height={100}
-      className="h-1/2 w-full rounded-sm bg-white lg:rounded-lg"
+      className="h-1/2 w-full rounded-lg bg-white"
     />
   );
 }
