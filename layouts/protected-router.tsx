@@ -1,4 +1,4 @@
-import type { Auth } from "@/app/login/page";
+import type { LoginResponse } from "@/types/auth.type";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -16,7 +16,7 @@ export default function ProtectedRouter({ children }: ProtectedRouterProps) {
       router.replace("/login");
       return;
     }
-    const auth: Auth = JSON.parse(data);
+    const auth: LoginResponse = JSON.parse(data);
 
     if (!auth.isLoggedIn && window.location.pathname !== "/login") {
       router.replace("/login");

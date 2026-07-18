@@ -1,14 +1,17 @@
 import CardProduct from "@/components/card-product";
+import ErrorHandle from "@/components/error-handle";
 import Skeleton from "@/components/skleton";
 import type { ProductResponse } from "@/types/product.type";
 
 interface ProductContentProps {
+  getProduct: () => void;
   products: ProductResponse[];
   isLoading: boolean;
   isError: boolean;
 }
 
 export default function ProductContent({
+  getProduct,
   products,
   isLoading,
   isError,
@@ -23,14 +26,7 @@ export default function ProductContent({
           <Skeleton className="min-h-96 lg:min-h-72" />
         </>
       ) : isError ? (
-        <div className="col-span-1 md:col-span-2 lg:col-span-4 py-24">
-          <h3 className="font-semibold text-6xl text-red-300 text-center">
-            ERROR
-          </h3>
-          <p className="font-medium text-base text-red-600 text-center">
-            Oops, something went wrong. Please try again later.
-          </p>
-        </div>
+        <ErrorHandle onRetry={getProduct} />
       ) : products.length > 0 ? (
         products.map((product) => (
           <CardProduct key={product.id} id={product.id}>

@@ -5,7 +5,7 @@ import ContainerLayout from "@/layouts/container-layout";
 import { getProduct } from "@/services/product.service";
 import type { Option } from "@/types/option.type";
 import type { GetProductResponse } from "@/types/product.type";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const categories: Option<string>[] = [
   {
@@ -67,22 +67,22 @@ export default function ProductFragment() {
   const [showSort, setShowSort] = useState<boolean>(false);
   const [sortBy, setSortBy] = useState<string>("");
   const [keyword, setKeyword] = useState<string>("");
+  const getData = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      setIsError(false);
+      const dataProduct = await getProduct();
+      setData(dataProduct);
+    } catch (error) {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const dataProduct = await getProduct();
-        setData(dataProduct);
-      } catch (error) {
-        console.log(error);
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
     getData();
-  }, []);
+  }, [getData]);
 
   const productFiltered = data.products.filter((product) => {
     const sameKeyword =
@@ -141,6 +141,7 @@ export default function ProductFragment() {
         </div>
       </div>
       <ProductContent
+        getProduct={getData}
         products={productFiltered}
         isLoading={isLoading}
         isError={isError}
